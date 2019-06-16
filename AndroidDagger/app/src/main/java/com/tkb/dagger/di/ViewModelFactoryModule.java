@@ -19,8 +19,7 @@ public abstract class ViewModelFactoryModule {
      * @return
      */
     @Binds
-    public abstract ViewModelProvider.Factory
-    bindViewModelFactory(ViewModelProviderFactory factory);
+    public abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelProviderFactory factory);
 
    /* @Provides
     public static ViewModelProvider.Factory
