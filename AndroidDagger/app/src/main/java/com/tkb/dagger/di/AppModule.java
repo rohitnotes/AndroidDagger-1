@@ -9,11 +9,14 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.tkb.dagger.R;
+import com.tkb.dagger.util.Constants;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * AppModule is used to provide those objects , which is not related with Activity, Rather related
@@ -22,6 +25,12 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
+    @Singleton
+    @Provides
+    static Retrofit provideRetrofit(){
+        return new Retrofit.Builder().baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+    }
     @Singleton
     @Provides
     static RequestOptions provideRequestOption(){
