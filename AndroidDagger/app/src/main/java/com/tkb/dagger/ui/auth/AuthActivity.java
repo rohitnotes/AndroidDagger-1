@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.bumptech.glide.RequestManager;
 import com.tkb.dagger.R;
@@ -23,6 +25,8 @@ import com.tkb.dagger.viewmodels.ViewModelProviderFactory;
 import javax.inject.Inject;
 
 import dagger.android.support.DaggerAppCompatActivity;
+
+import static com.tkb.dagger.ui.auth.AuthResource.AuthStatus.LOADING;
 
 public class AuthActivity extends DaggerAppCompatActivity {
 
@@ -40,6 +44,7 @@ public class AuthActivity extends DaggerAppCompatActivity {
 
     EditText userId;
     Button loginButton;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +55,8 @@ public class AuthActivity extends DaggerAppCompatActivity {
 
         userId = findViewById(R.id.user_id_input);
         loginButton = findViewById(R.id.login_button);
+
+        progressBar = findViewById(R.id.progress_bar);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,14 +69,43 @@ public class AuthActivity extends DaggerAppCompatActivity {
     }
 
     private void subscribeObserver(){
-        viewModel.observeUser().observe(this, new Observer<User>() {
+        viewModel.observeUser().observe(this, new Observer<AuthResource<User>>() {
             @Override
-            public void onChanged(User user) {
-                if (user != null){
-                    Log.e(TAG," User Email :"+user.getEmail());
+            public void onChanged(AuthResource<User> userAuthResource) {
+                if (userAuthResource != null){
+                    switch (userAuthResource.status){
+                        case LOADING:{
+                            showProgressBar(true);
+                            break;
+                        }
+                        case AUTHENTICATED:{
+                            showProgressBar(false);
+
+                            Log.e(TAG," Login Successfully :"+userAuthResource.data.getEmail());
+                            break;
+                        }
+                        case NOT_AUTHENTICATED:{
+                            showProgressBar(false);
+                            break;
+                        }
+                        case ERROR:{
+                            showProgressBar(false);
+                            Toast.makeText(AuthActivity.this,"Login faile: "+userAuthResource.message,Toast.LENGTH_LONG).show();
+
+                            break;
+                        }
+                    }
                 }
             }
         });
+    }
+
+    private void showProgressBar(boolean status){
+        if (status){
+            progressBar.setVisibility(View.VISIBLE);
+        }else{
+            progressBar.setVisibility(View.INVISIBLE);
+        }
     }
     private void loginAttempt() {
         if (TextUtils.isEmpty(userId.getText())){
