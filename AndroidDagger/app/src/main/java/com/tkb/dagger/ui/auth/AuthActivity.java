@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,6 +21,7 @@ import com.bumptech.glide.RequestManager;
 import com.tkb.dagger.R;
 import com.tkb.dagger.di.DaggerAppComponent;
 import com.tkb.dagger.models.User;
+import com.tkb.dagger.ui.main.MainActivity;
 import com.tkb.dagger.viewmodels.ViewModelProviderFactory;
 
 import javax.inject.Inject;
@@ -80,7 +82,7 @@ public class AuthActivity extends DaggerAppCompatActivity {
                         }
                         case AUTHENTICATED:{
                             showProgressBar(false);
-
+                            loggedIn();
                             Log.e(TAG," Login Successfully :"+userAuthResource.data.getEmail());
                             break;
                         }
@@ -98,6 +100,12 @@ public class AuthActivity extends DaggerAppCompatActivity {
                 }
             }
         });
+    }
+
+    private void loggedIn(){
+        startActivity(new Intent(this, MainActivity.class));
+        finish();
+
     }
 
     private void showProgressBar(boolean status){
