@@ -8,6 +8,7 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
+import com.tkb.dagger.SessionManager;
 import com.tkb.dagger.models.User;
 import com.tkb.dagger.network.auth.AuthApi;
 
@@ -23,11 +24,13 @@ public class AuthViewModel extends ViewModel {
     private static final String TAG = "AuthViewModel";
     private final AuthApi authApi;
     private MediatorLiveData<AuthResource<User>>anUser = new MediatorLiveData<>();
-    @Inject
-   public AuthViewModel(AuthApi authApi){
-        this.authApi = authApi;
-        Log.e(TAG,"ViewModel is working properly");
+    private SessionManager sessionManager;
 
+    @Inject
+   public AuthViewModel(AuthApi authApi, SessionManager sessionManager){
+        this.authApi = authApi;
+        this.sessionManager = sessionManager;
+        Log.e(TAG,"ViewModel is working properly");
 
     }
 
