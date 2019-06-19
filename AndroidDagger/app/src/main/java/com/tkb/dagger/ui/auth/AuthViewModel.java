@@ -23,7 +23,6 @@ public class AuthViewModel extends ViewModel {
 
     private static final String TAG = "AuthViewModel";
     private final AuthApi authApi;
-    private MediatorLiveData<AuthResource<User>>anUser = new MediatorLiveData<>();
     private SessionManager sessionManager;
 
     @Inject
@@ -35,11 +34,11 @@ public class AuthViewModel extends ViewModel {
     }
 
     public void authenticationWithId(int userId){
+        sessionManager.authenticateWithId(queryUserId(userId));
+    }
 
-        // Following line will let the UI know  , that the request is about to start and progress bar will be shown
-
-        anUser.setValue(AuthResource.loading((User)null));
-        final LiveData<AuthResource<User>> source = LiveDataReactiveStreams.fromPublisher(
+    public LiveData<AuthResource<User>> queryUserId(int userId){
+       return LiveDataReactiveStreams.fromPublisher(
                 authApi.getUser(userId)
                         //Instead of calling onError()
                         .onErrorReturn(new Function<Throwable, User>() {
@@ -60,16 +59,8 @@ public class AuthViewModel extends ViewModel {
                 })
                         .subscribeOn(Schedulers.io())
         );
-
-        anUser.addSource(source, new Observer<AuthResource<User>>() {
-            @Override
-            public void onChanged(AuthResource<User> user) {
-                anUser.setValue(user);
-                anUser.removeSource(source);
-            }
-        });
     }
-    public LiveData<AuthResource<User>>observeUser (){
-        return anUser;
+    public LiveData<AuthResource<User>>observeAuthState(){
+        return sessionManager.getAuthUser();
     }
 }
