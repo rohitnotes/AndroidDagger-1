@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.tkb.dagger.BaseActivity;
 import com.tkb.dagger.R;
+import com.tkb.dagger.ui.main.profile.ProfileFragment;
 
 
 public class MainActivity extends BaseActivity {
@@ -20,8 +21,13 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         Toast.makeText(this,"Successfully logged in",Toast.LENGTH_LONG).show();
+        openFragment();
     }
 
+    void openFragment(){
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new ProfileFragment()).commit();
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
