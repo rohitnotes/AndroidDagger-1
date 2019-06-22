@@ -2,7 +2,7 @@ package com.tkb.dagger.di;
 
 import com.tkb.dagger.di.auth.AuthModule;
 import com.tkb.dagger.di.auth.AuthViewModelModule;
-import com.tkb.dagger.network.auth.AuthApi;
+import com.tkb.dagger.di.main.MainFragmentBuilderModule;
 import com.tkb.dagger.ui.auth.AuthActivity;
 import com.tkb.dagger.ui.main.MainActivity;
 
@@ -21,6 +21,6 @@ public abstract class ActivityBuildersModule {
     @ContributesAndroidInjector (modules = {AuthViewModelModule.class, AuthModule.class})
     abstract AuthActivity contributeAuthActivity();
 
-    @ContributesAndroidInjector
+    @ContributesAndroidInjector(modules = {MainFragmentBuilderModule.class})
     abstract MainActivity contributeMainActivity();
 }
