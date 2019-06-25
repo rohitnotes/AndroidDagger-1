@@ -3,6 +3,7 @@ package com.tkb.dagger.di;
 import com.tkb.dagger.di.auth.AuthModule;
 import com.tkb.dagger.di.auth.AuthViewModelModule;
 import com.tkb.dagger.di.main.MainFragmentBuilderModule;
+import com.tkb.dagger.di.main.MainModule;
 import com.tkb.dagger.di.main.MainViewModelModule;
 import com.tkb.dagger.ui.auth.AuthActivity;
 import com.tkb.dagger.ui.main.MainActivity;
@@ -23,6 +24,6 @@ public abstract class ActivityBuildersModule {
     abstract AuthActivity contributeAuthActivity();
 
     // In every module , two sub module have been added, one for VIew (Activity or Fragment) and another for ViewModel
-    @ContributesAndroidInjector(modules = {MainFragmentBuilderModule.class, MainViewModelModule.class})
+    @ContributesAndroidInjector(modules = {MainFragmentBuilderModule.class, MainViewModelModule.class, MainModule.class})
     abstract MainActivity contributeMainActivity();
 }
