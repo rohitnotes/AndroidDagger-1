@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.tkb.dagger.BaseActivity;
 import com.tkb.dagger.R;
+import com.tkb.dagger.ui.main.post.PostsFragment;
 import com.tkb.dagger.ui.main.profile.ProfileFragment;
 
 
@@ -25,7 +26,7 @@ public class MainActivity extends BaseActivity {
     }
 
     void openFragment(){
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new ProfileFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_container, new PostsFragment()).commit();
 
     }
     @Override
