@@ -91,9 +91,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 break;
             }
             case R.id.nav_posts :{
-                //if (isValidDestination(R.id.postsScreen)){
+                if (isValidDestination(R.id.postsScreen)){
                     Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.postsScreen);
-                //}
+                }
                 break;
             }
         }
@@ -114,4 +114,12 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         return NavigationUI.navigateUp(Navigation.findNavController(this,R.id.nav_host_fragment),drawerLayout);
     }
 
+    /**
+     * following method will prevent creating same navigation object if user is already on the page.
+     * @param destination
+     * @return boolean
+     */
+    private boolean isValidDestination(int destination){
+      return destination != Navigation.findNavController(this,R.id.nav_host_fragment).getCurrentDestination().getId();
+    }
 }
