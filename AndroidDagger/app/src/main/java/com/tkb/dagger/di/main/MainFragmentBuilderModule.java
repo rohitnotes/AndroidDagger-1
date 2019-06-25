@@ -6,6 +6,9 @@ import com.tkb.dagger.ui.main.profile.ProfileFragment;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
+/**
+ * @ContributesAndroidInjector annotation generates sub-components under the hood.
+ */
 @Module
 public abstract class MainFragmentBuilderModule {
     @ContributesAndroidInjector

@@ -12,18 +12,35 @@ import dagger.Component;
 import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
 
+/**Components are essentially the glue that holds everything together.
+ * They are a way of telling Dagger 2 what dependencies should be bundled
+ * together and made available to a given instance so they can be used.
+ *
+ * This is main component of the application
+ * modules = {AndroidSupportInjectionModule.class} is always necessary for application level component
+ */
 @Singleton
 @Component (modules = {AndroidSupportInjectionModule.class,
-        ActivityBuildersModule.class,AppModule.class, ViewModelFactoryModule.class})
+        // ActivityBuildersModule is a class which contains sub components
+        ActivityBuildersModule.class,
+        AppModule.class,
+        ViewModelFactoryModule.class})
 public interface AppComponent extends AndroidInjector<BaseApplication> {
 
+    //SessionManger is an application level dependency , that's why it is declared here
     SessionManager sessionManager ();
+
+    /**
+     * Override Component.Builder ,
+     */
     @Component.Builder
     interface Builder{
 
+        //Bind application instance with app component
         @BindsInstance
         Builder application(Application application);
 
+        //Application will be available for injection after building AppComponent
         AppComponent build();
 
     }

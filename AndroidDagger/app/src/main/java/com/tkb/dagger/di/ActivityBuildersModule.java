@@ -13,6 +13,14 @@ import com.tkb.dagger.ui.main.MainActivity;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
+/**
+ * This class contains sub-components
+ * @ContributesAndroidInjector annotation generates sub-components under the hood.
+ *
+ * @AuthScope and @MainScope are two custom scope, they indicates where a object is Bounded
+ * and how long will it remain . Object Bounded with scope will be automatically removed if
+ * Scope is removed
+ */
 @Module
 public abstract class ActivityBuildersModule {
 
@@ -20,7 +28,7 @@ public abstract class ActivityBuildersModule {
      * Activity AuthViewModelModule.class is added here ,because it will be only necessary
      * for Authentication. It would be added inside AppComponent, if it is necessary for
      * whole application
-     * @return
+     *
      */
     @AuthScope
     @ContributesAndroidInjector (modules = {AuthViewModelModule.class, AuthModule.class})
