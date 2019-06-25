@@ -1,17 +1,23 @@
 package com.tkb.dagger.ui.main.post;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tkb.dagger.R;
+import com.tkb.dagger.models.Post;
+import com.tkb.dagger.ui.main.Resource;
 import com.tkb.dagger.viewmodels.ViewModelProviderFactory;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -37,6 +43,20 @@ public class PostsFragment extends DaggerFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         recyclerView = view.findViewById(R.id.recycler_view);
         postsViewModel = ViewModelProviders.of(this,providerFactory).get(PostsViewModel.class);
-
+        subscribeObserver();
     }
+
+    private void subscribeObserver() {
+        postsViewModel.observePosts().removeObservers(getViewLifecycleOwner());
+        postsViewModel.observePosts().observe(getViewLifecycleOwner(), new Observer<Resource<List<Post>>>() {
+            @Override
+            public void onChanged(Resource<List<Post>> listResource) {
+                if (listResource !=null ){
+                    Log.e(TAG,"onChanges: "+listResource.data);
+                }
+            }
+        });
+    }
+
+
 }
