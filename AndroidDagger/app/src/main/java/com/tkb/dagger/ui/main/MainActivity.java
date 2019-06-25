@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
@@ -83,11 +84,16 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.nav_profile :{
-                Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.profileScreen);
+                // Following code will clear all the backstack if user click on the profile page
+                NavOptions options = new NavOptions.Builder().setPopUpTo(R.id.main,true).build();
+                Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.profileScreen,
+                        null, options);
                 break;
             }
             case R.id.nav_posts :{
-                Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.postsScreen);
+                //if (isValidDestination(R.id.postsScreen)){
+                    Navigation.findNavController(this,R.id.nav_host_fragment).navigate(R.id.postsScreen);
+                //}
                 break;
             }
         }
@@ -107,4 +113,5 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(Navigation.findNavController(this,R.id.nav_host_fragment),drawerLayout);
     }
+
 }
