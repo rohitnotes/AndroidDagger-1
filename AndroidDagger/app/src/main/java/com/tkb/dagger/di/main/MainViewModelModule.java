@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.tkb.dagger.di.ViewModelKey;
 import com.tkb.dagger.ui.auth.AuthViewModel;
+import com.tkb.dagger.ui.main.post.PostsViewModel;
 import com.tkb.dagger.ui.main.profile.ProfileFragment;
 import com.tkb.dagger.ui.main.profile.ProfileViewModel;
 
@@ -19,4 +20,8 @@ public abstract class MainViewModelModule {
     @ViewModelKey(ProfileViewModel.class)
     public abstract ViewModel bindMainViewModel(ProfileViewModel profileViewModel);
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(PostsViewModel.class)
+    public abstract ViewModel bindMainViewModel(PostsViewModel postsViewModel);
 }
