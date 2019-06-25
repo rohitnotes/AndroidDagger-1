@@ -63,6 +63,18 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 sessionManager.logout();
                 return true;
             }
+            /**
+             * android.R.id.home means hamburger item id. following code will close the navigation item
+             * and if it's not open, it will not consume any click and will return false.
+             */
+            case android.R.id.home:{
+                if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    return true;
+                }else {
+                    return false;
+                }
+            }
         }
         return super.onOptionsItemSelected(item);
     }
