@@ -18,10 +18,10 @@ public abstract class MainViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(ProfileViewModel.class)
-    public abstract ViewModel bindMainViewModel(ProfileViewModel profileViewModel);
+    public abstract ViewModel bindProfileViewModel(ProfileViewModel profileViewModel);
 
     @Binds
     @IntoMap
     @ViewModelKey(PostsViewModel.class)
-    public abstract ViewModel bindMainViewModel(PostsViewModel postsViewModel);
+    public abstract ViewModel bindPostViewModel(PostsViewModel postsViewModel);
 }
