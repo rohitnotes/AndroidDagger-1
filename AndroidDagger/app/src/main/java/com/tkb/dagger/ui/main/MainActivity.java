@@ -1,6 +1,7 @@
 package com.tkb.dagger.ui.main;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -81,5 +82,17 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         menuItem.setChecked(true);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    /**
+     * Following method add a backStack for navigation, during transection from one navigation item to another, if
+     * user press the back button, then other option will open which is in the back stack.
+     *
+     * This method also open the navigation drawer after clicking the hamburger
+     * @return
+     */
+    @Override
+    public boolean onSupportNavigateUp() {
+        return NavigationUI.navigateUp(Navigation.findNavController(this,R.id.nav_host_fragment),drawerLayout);
     }
 }
