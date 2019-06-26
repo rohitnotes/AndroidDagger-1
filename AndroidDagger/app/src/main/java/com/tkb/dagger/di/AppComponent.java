@@ -36,7 +36,9 @@ public interface AppComponent extends AndroidInjector<BaseApplication> {
     @Component.Builder
     interface Builder{
 
-        //Bind application instance with app component
+        //Bind application instance with app component, @BindsInstance bind two instance which has
+        //same lifetime, as Application and AppComponent will be alive enter application lifetime
+        //so they are bounded together
         @BindsInstance
         Builder application(Application application);
 
