@@ -1,5 +1,7 @@
 package com.tkb.dagger;
 
+import androidx.test.espresso.Espresso;
+import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 import androidx.test.rule.ActivityTestRule;
@@ -18,6 +20,7 @@ import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.intent.Intents.intended;
+import static androidx.test.espresso.intent.matcher.ComponentNameMatchers.hasClassName;
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -35,13 +38,18 @@ public class AuthActivityTest {
     }
 
     @Test
-    public void testBeverageClick_shouldOpenBeverageListActivity() {
+    public void testLoginClick_shouldOpenProfileFragment() {
 
         onView(withId(R.id.user_id_input)).perform(typeText("3"));
         closeSoftKeyboard();
         onView(withId(R.id.login_button))
                 .perform(click());
-       // intended(hasComponent(ProfileFragment.class.getName()));
-    }
 
+
+        String templatePictureActivityClassName = MainActivity.class.getName();
+        IdlingRegistry.getInstance().register(new WaitActivityIsResumedIdlingResource(templatePictureActivityClassName));
+
+        intended(hasComponent(hasClassName(templatePictureActivityClassName)));
+
+    }
 }
