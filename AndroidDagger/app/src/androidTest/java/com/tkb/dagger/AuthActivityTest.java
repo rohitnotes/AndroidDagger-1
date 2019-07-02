@@ -15,6 +15,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -24,6 +26,8 @@ import static androidx.test.espresso.intent.matcher.ComponentNameMatchers.hasCla
 import static androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent;
 import static androidx.test.espresso.matcher.ViewMatchers.withContentDescription;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class AuthActivityTest {
@@ -51,5 +55,34 @@ public class AuthActivityTest {
 
         intended(hasComponent(hasClassName(templatePictureActivityClassName)));
 
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        //onView(withText("Logout")).perform(click());
+        //pressBack();
+       /* String loginActivityClassName = AuthActivity.class.getName();
+
+        intended(hasComponent(hasClassName(loginActivityClassName)));*/
+
+
+    }
+
+    @Test
+    public void testLogout() {
+
+        onView(withId(R.id.user_id_input)).perform(typeText("3"));
+        closeSoftKeyboard();
+        onView(withId(R.id.login_button))
+                .perform(click());
+
+
+        String templatePictureActivityClassName = MainActivity.class.getName();
+        IdlingRegistry.getInstance().register(new WaitActivityIsResumedIdlingResource(templatePictureActivityClassName));
+
+        intended(hasComponent(hasClassName(templatePictureActivityClassName)));
+
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().getTargetContext());
+        onView(withText("Logout")).perform(click());
+        String loginActivityClassName = AuthActivity.class.getName();
+
+        intended(hasComponent(hasClassName(loginActivityClassName)));
     }
 }
