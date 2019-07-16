@@ -39,6 +39,15 @@ This application is a Dagger2 based application.
 
 * @Qualifier: We use this annotation when the type of class is insufficient to identify a dependency. For example in the case of Android, many times we need different types of context, so we might define a qualifier annotation @ForApplication and @ForActivity, thus when injecting a context we can use those qualifiers to tell Dagger which type of context we want to be provided.
 
+# Advantages of Dagger 2
 
+* Simple access to shared implementations.
+* Simple settings of complex dependencies. The big apps usually have a lot of dependencies. Dagger 2 allows you to control all dependences easy.
+* Simple unit testing and integration testing. We will discuss it in the article about testing with Dagger 2.
+“Local” singletons.
+* Code generation. The received code is clear and available for debugging.
+* No obfuscation problems. Both Point 5 and 6 are advantage properties of Dagger 2 in comparison with Dagger 1. Dagger 1 worked with reflection. That’s why there were problems with performance, obfuscation, strange errors in runtime.
+* Small size of the library.
 
 Sources: https://fernandocejas.com/2015/04/11/tasting-dagger-2-on-android/
+      https://android.jlelse.eu/dagger-2-part-i-basic-principles-graph-dependencies-scopes-3dfd032ccd82
