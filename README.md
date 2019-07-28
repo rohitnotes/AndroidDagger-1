@@ -8,6 +8,13 @@ This application is a Dagger2 based application.
 * RXJava
 * MVVM architecture
 
+# App features
+* Login
+* API access using Retrofit
+* Logout
+* Menu
+
+
 # Benefits of Dagger2
 * It allows the developer do register dependencies on a single entry point for each component
 * It sounds great the whole "no reflection" business"
