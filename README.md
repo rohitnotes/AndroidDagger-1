@@ -3,10 +3,10 @@ This application is a Dagger2 based application.
 
 # #Technology 
 
-* * Retrofit
-* * Dagger2
-* * RXJava
-* * MVVM architecture
+* Retrofit
+* Dagger2
+* RXJava
+* MVVM architecture
 
 # Benefits of Dagger2
 * It allows the developer do register dependencies on a single entry point for each component
