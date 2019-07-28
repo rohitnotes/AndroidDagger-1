@@ -13,7 +13,7 @@ This application is a Dagger2 based application.
 * API access using Retrofit
 * Logout
 * Menu
-
+* Navigation Manager
 
 # Benefits of Dagger2
 * It allows the developer do register dependencies on a single entry point for each component
