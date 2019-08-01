@@ -1,7 +1,7 @@
 # AndroidDagger
 This application is a Dagger2 based application. 
 
-# #Technology 
+# Technology 
 
 * Retrofit
 * Dagger2
